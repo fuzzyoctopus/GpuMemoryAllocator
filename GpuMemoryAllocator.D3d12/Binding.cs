@@ -394,6 +394,7 @@ public enum AllocatorFlags : int
     DefaultPoolsNotZeroed = 0x4,
     MsaaTexturesAlwaysCommitted = 0x8,
     DontPreferSmallBuffersCommitted = 0x10,
+    DontUseTightAlignment = 0x20,
 }
 public unsafe partial struct AllocatorDesc
 {
@@ -437,6 +438,14 @@ public unsafe partial struct Allocator
         return __((Allocator*)Unsafe.AsPointer(ref this));
         [UnmanagedCallConv(CallConvs = [typeof(CallConvThiscall)])]
         [DllImport("D3D12MA", EntryPoint = "?IsGPUUploadHeapSupported@Allocator@D3D12MA@@QEBAHXZ")]
+        static extern int __(Allocator* pThis);
+    }
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public int IsTightAlignmentSupported()
+    {
+        return __((Allocator*)Unsafe.AsPointer(ref this));
+        [UnmanagedCallConv(CallConvs = [typeof(CallConvThiscall)])]
+        [DllImport("D3D12MA", EntryPoint = "?IsTightAlignmentSupported@Allocator@D3D12MA@@QEBAHXZ")]
         static extern int __(Allocator* pThis);
     }
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
